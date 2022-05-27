@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<launch>
+    <group ns="pan_tilt">
+    <rosparam file="$(find pan_tilt_pi_ctrl)/config/controller_config.yaml" command="load"/>
+ 
+    <node name="controller_manager"
+        pkg="controller_manager"
+        type="spawner" respawn="false"
+        output="screen"
+        args="joint_state_controller
+              effort_controller_snake
+              effort_controller_scorpion"/>
+ 
+    
+    
+
+
+    <!-- Parsing xacro and setting robot_description parameter -->
+    <param name="robot_description" command="$(find xacro)/xacro $(find pan_tilt_pi_ctrl)/urdf/sagal_pan_tilt.xacro" />
+    <!--
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+        <remap from="/joint_states" to="/pan_tilt/joint_states"/>
+    </node>
+    -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+        <remap from="/robot_description" to="/pan_tilt/robot_description" />
+    </node>
+    <!-- Launch visualization in rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-f /base_link" required="true" />
+    <node name="pan_tilt_pi_ctrl" pkg="pan_tilt_pi_ctrl" type="pan_tilt_pi_ctrl_run" output="screen" respawn="false" />
+  </group>
+</launch>

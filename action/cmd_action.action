@@ -1,0 +1,11 @@
+#goal definition
+float64 snake_posi_dest
+float64 scorpion_posi_dest
+---
+#result definition
+float64 snake_posi
+float64 scorpion_posi
+---
+#feedback
+float64 snake_posi_fb
+float64 scorpion_posi_fb

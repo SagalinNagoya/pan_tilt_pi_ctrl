@@ -1,0 +1,97 @@
+<?xml version="1.0" ?>
+<robot name="sagal_pan_tilt" xmlns:xacro="http://ros.org/wiki/xacro">
+    <material name="black">
+        <color rgba="0.2 0.2 0.2 1"/>
+    </material>
+    <material name="grey">
+        <color rgba="0.75 0.75 0.75 1"/>
+    </material>
+    <material name="red">
+        <color rgba="0.75 0.0 0.0 1"/>
+    </material>
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="1 1 0.04"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="grey"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="1 1 0.04"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+        <inertial>
+            <mass value="0.25" />
+            <origin xyz="0 0 0.013" rpy="0 0 0"/>
+            <inertia ixx="8.34666666666667" ixy="0.0" ixz="0.0"
+                iyy="8.34666666666667" iyz="0.0" 
+                izz="16.6666666666667" />
+            </inertial> 
+    </link>
+    <joint name="snake_joint" type="revolute">
+        <axis xyz="0 0 1"/>
+        <parent link="base_link"/>
+        <child link="column_link"/>
+        <origin xyz="0 0 0.02" rpy="0 0 0"/>
+        <limit effort="300" velocity="1" lower="-1.5707" upper="1.5707"/>
+        <dynamics damping="50" friction="1"/>
+    </joint>
+    <link name="column_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.4" radius="0.05"/>
+            </geometry>
+            <origin xyz="0 0 0.2" rpy="0 0 0"/>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.1" radius="0.1"/>
+            </geometry>
+            <origin xyz="0 0 0.05" rpy="0 0 0"/>
+        </collision>
+        <inertial>
+            <mass value="0.5" />
+            <origin xyz="0 0 0.05" rpy="0 0 0"/>
+            <inertia ixx="0.016666666666667" ixy="0.0" ixz="0.0"
+                    iyy="0.016666666666667" iyz="0.0" 
+                    izz="0.025" />
+        </inertial> 
+    </link>
+    <joint name="scorpion_joint" type="revolute">
+        <axis xyz="1 0 0"/>
+        <parent link="column_link"/>
+        <child link="tilt_link"/>
+        <origin xyz="0 0 0.4" rpy="0 0 0"/>
+        <limit effort="300" velocity="1" lower="-1.5707" upper="1.5707"/>
+        <dynamics damping="50" friction="1"/>
+    </joint>
+    <link name="tilt_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.3" radius="0.05"/>
+            </geometry>
+            <origin xyz="0 0 0.01" rpy="1.5707 0 0"/>
+            <material name="red"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.3" radius="0.05"/>
+            </geometry>
+            <origin xyz="0 0 0.05" rpy="0 0 0"/>
+        </collision>
+        <inertial>
+            <mass value="0.5" />
+            <origin xyz="0 0 0.05" rpy="0 0 0"/>
+            <inertia ixx="0.016666666666667" ixy="0.0" ixz="0.0"
+                    iyy="0.016666666666667" iyz="0.0" 
+                    izz="0.025" />
+        </inertial> 
+    </link>
+    
+    
+    
+</robot>
